@@ -1,16 +1,13 @@
-{{define "index"}}
+{{define "product_index"}}
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loja</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+{{template "head"}}
 
-</head>
 <body>
+    {{template "nav"}}
+
     <h1>Alura Loja</h1>
 
     <hr>
@@ -35,6 +32,10 @@
                             <td>{{.Description}}</td>
                             <td>{{.Price}}</td>
                             <td>{{.Amount}}</td>
+                            <td>
+                                <a href="/product/edit?id={{.Id}}" class="btn btn-info">edit</a>
+                                <a data-id={{.Id}} href="#" class="btn btn-delete btn-danger">delete</a>
+                            </td>
                         </tr>
                         {{end}}
                     </tbody>
@@ -47,5 +48,22 @@
         </div>
     </div>
 </body>
+<script>
+    window.onload = () => {
+        document.querySelectorAll(".btn-delete").forEach(button => {
+            button.addEventListener('click', () => {
+                if (confirm("Are you sure you want to delete?")) {
+                    const id = button.dataset.id;
+                    fetch(`/product/delete?id=${id}`, {
+                        method: "DELETE"
+                    })
+                    .then(() => {
+                        button.parentNode.parentNode.remove();
+                    });
+                }
+            });
+        });
+    };
+</script>
 </html>
 {{end}}

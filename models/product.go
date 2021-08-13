@@ -1,13 +1,14 @@
 package models
 
 type Product struct {
+	Id          int
 	Name        string
 	Description string
 	Price       float64
-	Amount      int32
+	Amount      int
 }
 
-func New(name string, description string, price float64, amount int32) *Product {
+func New(name string, description string, price float64, amount int) *Product {
 	return &Product{
 		Name:        name,
 		Description: description,

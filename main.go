@@ -1,7 +1,7 @@
 package main
 
 import (
-	"goShop/routes"
+	"goShop/shared/routes"
 )
 
 func main() {
